@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-const Home = () => {
+import { connect } from "react-redux";
+
+const Home = ({ toDos }) => {
+  console.log(props);
   const [text, setText] = useState();
   const onChange = (e) => {
     setText(e.target.value);
@@ -16,9 +19,15 @@ const Home = () => {
         <input type="text" value={text} onChange={onChange} />
         <button>Add</button>
       </form>
-      <ul></ul>
+      <ul>{JSON.stringify(toDos)}</ul>
     </>
   );
 };
 
-export default Home;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    toDos: state,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
