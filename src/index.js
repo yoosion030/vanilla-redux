@@ -1,5 +1,4 @@
 import { legacy_createStore } from "redux";
-
 const form = document.querySelector("form");
 const input = document.querySelector("input");
 const ul = document.querySelector("ul");
@@ -8,10 +7,10 @@ const ADD_TODO = "ADD_TODO";
 const DELETE_TODO = "DELETE_TODO";
 
 const reducer = (state = [], action) => {
-  console.log(action);
+  console.log(action.text);
   switch (action.type) {
     case ADD_TODO:
-      return [];
+      return [...state, { text: action.text, id: Date.now() }];
     case DELETE_TODO:
       return [];
     default:
@@ -21,6 +20,8 @@ const reducer = (state = [], action) => {
 
 const store = legacy_createStore(reducer);
 
+store.subscribe(() => console.log(store.getState()));
+
 const onSubmit = (e) => {
   e.preventDefault();
   const toDo = input.value;
@@ -28,4 +29,4 @@ const onSubmit = (e) => {
   store.dispatch({ type: ADD_TODO, text: toDo });
 };
 
-form.addEventListener("onSubmit", onSubmit);
+form.addEventListener("submit", onSubmit);
