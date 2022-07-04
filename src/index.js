@@ -21,7 +21,8 @@ const reducer = (state = [], action) => {
   console.log(action.text);
   switch (action.type) {
     case ADD_TODO:
-      return [{ text: action.text, id: Date.now() }, ...state];
+      const newToDoObj = { text: action.text, id: Date.now() };
+      return [newToDoObj, ...state];
     case DELETE_TODO:
       return state.filter((toDo) => toDo.id !== action.id);
     default:
